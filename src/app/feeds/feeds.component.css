@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1%;
+}
+.feed-card {
+  flex: 1;
+  margin-top: 15px;
+}
+.feed-card-row {
+  max-width: 45%;
+  margin: 1%;
+  flex-basis: 100%;
+}

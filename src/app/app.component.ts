@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'my-test-app';
+  onFeedListen(event: Event) {
+    console.log(event);
+  }
 }
