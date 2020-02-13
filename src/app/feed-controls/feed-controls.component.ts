@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output, OnInit} from '@angular/core';
 import {QtyHandlerService} from '../qty-handler.service';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-feed-controls',
@@ -9,8 +10,9 @@ import {QtyHandlerService} from '../qty-handler.service';
 export class FeedControlsComponent implements OnInit {
   show = true;
   text = 'Remove';
+  value = 0;
   @Output() containerShow = new EventEmitter<boolean>();
-  @Input() value: number;
+
 
   constructor(private qtyHandlerService: QtyHandlerService) {
   }

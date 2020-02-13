@@ -33,7 +33,6 @@ export class FeedsWrapperComponent implements OnInit, OnDestroy {
     this.feedSubscription = feedInterval.pipe(startWith(0)).subscribe(x => {
       this.feedNewsService.sendGetRequest(`${this.props.url}?limit=${this.limit}`).subscribe((data: any) => {
         this.feeds = data.slice(-this.props.postsQty);
-        console.log(this.props);
         this.limit += this.props.postsQty;
       });
     });
