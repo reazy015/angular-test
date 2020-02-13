@@ -6,8 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'my-test-app';
-  onFeedListen(event: Event) {
-    console.log(event);
+  containerVisible = true;
+  postsQty = 0;
+  updateFeedContainerStatus(status: boolean) {
+    this.containerVisible = status;
+  }
+  updatePostsQty(qty: number) {
+    this.postsQty = qty;
   }
 }

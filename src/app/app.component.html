@@ -1,1 +1,4 @@
-<app-feeds [props]="{interval: 5, postsQty: 3, url: 'http://api.massrelevance.com/MassRelDemo/kindle.json'}" (feedRequest)="onFeedListen($event)"></app-feeds>
+<div>
+  <app-feed-controls (containerShow)="updateFeedContainerStatus($event)"></app-feed-controls>
+  <app-feeds-wrapper *ngIf="containerVisible" [props]="{interval: 5, postsQty: postsQty ? postsQty : 3, url: 'http://api.massrelevance.com/MassRelDemo/kindle.json'}"></app-feeds-wrapper>
+</div>
