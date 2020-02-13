@@ -1,4 +1,18 @@
-.mat-form-field {
-  line-height: 2.1;
-  font-size: 14px;
+.mat-slider {
+  width: 100%;
+  max-width: 250px;
+  margin-left: 15px;
+}
+.mat-toolbar-row {
+  height: 90px;
+}
+@media (max-width: 420px) {
+  .mat-toolbar-row {
+    padding-top: 15px;
+    height: auto;
+    flex-wrap: wrap;
+  }
+  .mat-slider {
+    margin-left: 0;
+  }
 }

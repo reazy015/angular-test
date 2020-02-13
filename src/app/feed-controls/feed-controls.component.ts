@@ -1,6 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, OnInit} from '@angular/core';
 import {QtyHandlerService} from '../qty-handler.service';
-import {log} from 'util';
 
 @Component({
   selector: 'app-feed-controls',
@@ -9,23 +8,29 @@ import {log} from 'util';
 })
 export class FeedControlsComponent implements OnInit {
   show = true;
+  text = 'Remove';
   @Output() containerShow = new EventEmitter<boolean>();
+  @Input() value: number;
 
   constructor(private qtyHandlerService: QtyHandlerService) {
   }
 
   ngOnInit(): void {
+    this.qtyHandlerService.getPostsQty.subscribe(res => this.value = res);
   }
 
   onRemoveContainerHandler() {
     this.show = !this.show;
+    if (!this.show) {
+      this.qtyHandlerService.postsQty.next(0);
+    }
+    this.text = this.show ? 'Remove' : 'Show';
     this.containerShow.emit(this.show);
   }
 
-  onQtyChangeHandler(event) {
-    const nextQty = parseInt(event.target.value, 10);
-    if (nextQty > 0) {
-      this.qtyHandlerService.postsQty.next(nextQty);
+  onQtyChangeHandler(qty: number) {
+    if (qty > 0) {
+      this.qtyHandlerService.postsQty.next(qty);
     }
   }
 }
