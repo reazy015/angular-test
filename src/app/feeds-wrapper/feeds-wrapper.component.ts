@@ -19,9 +19,8 @@ export class FeedsWrapperComponent implements OnInit, OnDestroy {
   @Input() props: FeedRequest;
   @Output() feedRequest: EventEmitter<any> = new EventEmitter();
   unsubscribe = new Subject<void>();
-  feeds = [];
+  feeds;
   limit: number;
-  feedSubscription;
   postsQtySubscription;
 
   constructor(private feedNewsService: FeedNewsService,
@@ -30,23 +29,30 @@ export class FeedsWrapperComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.limit = this.props.postsQty;
-    this.feedSubscription = interval(this.props.interval * 1000)
+    this.feeds = interval(this.props.interval * 1000)
       .pipe(startWith(0),
         takeUntil(this.unsubscribe),
         mergeMap(_ => this.feedNewsService.sendGetRequest(`${this.props.url}?limit=${this.limit}`)),
-        map((feeds: [object]) => feeds.slice(-this.props.postsQty)))
-      .subscribe((resultFeeds: [object]) => {
-        this.feeds = resultFeeds;
-        this.limit += this.props.postsQty;
-      });
+        map((feeds: [object]) => {
+          this.limit += this.props.postsQty;
+
+          return feeds.slice(-this.props.postsQty).map((feed: any) => {
+            return {
+              text: feed.text,
+              created_at: feed.created_at,
+              name: feed.user.name,
+              avatar: feed.user.profile_image_url
+            };
+          });
+        }));
 
     this.postsQtySubscription = this.qtyHandlerService.getPostsQty
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(qty => {
-      if (qty > 0) {
-        this.props.postsQty = qty;
-      }
-    });
+        if (qty > 0) {
+          this.props.postsQty = qty;
+        }
+      });
   }
 
   ngOnDestroy(): void {

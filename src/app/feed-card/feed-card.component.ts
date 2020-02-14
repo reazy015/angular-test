@@ -7,7 +7,7 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./feed-card.component.css']
 })
 export class FeedCardComponent {
-  @Input() feed: any;
+  @Input() feed: object;
 
   constructor() {
   }
