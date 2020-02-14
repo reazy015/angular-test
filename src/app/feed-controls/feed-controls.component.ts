@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, OnInit} from '@angular/core';
+import {Component, EventEmitter, Output, OnInit, OnDestroy} from '@angular/core';
 import {QtyHandlerService} from '../qty-handler.service';
 import {FormControl} from '@angular/forms';
 
@@ -7,7 +7,7 @@ import {FormControl} from '@angular/forms';
   templateUrl: './feed-controls.component.html',
   styleUrls: ['./feed-controls.component.css']
 })
-export class FeedControlsComponent implements OnInit {
+export class FeedControlsComponent implements OnInit, OnDestroy {
   show = true;
   text = 'Remove';
   value = 0;
@@ -34,5 +34,9 @@ export class FeedControlsComponent implements OnInit {
     if (qty > 0) {
       this.qtyHandlerService.postsQty.next(qty);
     }
+  }
+
+  ngOnDestroy() {
+    this.qtyHandlerService.getPostsQty.unsubscribe();
   }
 }

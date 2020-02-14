@@ -1,5 +1,5 @@
 <div [ngClass]="'wrapper'">
   <mat-spinner *ngIf="feeds.length === 0" style="margin: auto;"></mat-spinner>
 
-  <app-feed-card *ngFor="let feed of feeds" [feed]="feed"  [appFeedCardSize]="feeds.length"></app-feed-card>
+  <app-feed-card *ngFor="let feed of feeds"  [feed]="feed"  [appFeedCardSize]="feeds.length"></app-feed-card>
 </div>
